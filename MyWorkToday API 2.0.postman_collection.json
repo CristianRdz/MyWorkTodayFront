@@ -1,0 +1,630 @@
+{
+	"info": {
+		"_postman_id": "6d2fab5e-c034-4c62-a6ee-ca00965ce222",
+		"name": "MyWorkToday API 2.0",
+		"description": "MyWorkToday API",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "28552466"
+	},
+	"item": [
+		{
+			"name": "Auth",
+			"item": [
+				{
+					"name": "Login USERS",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n        \"username\":\"redalphasiete@gmail.com\",\n        \"password\":\"7qG#UQD0YPaa\"\n    }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://uwicx4uhsa.execute-api.us-east-1.amazonaws.com/Prod/login",
+							"protocol": "https",
+							"host": [
+								"uwicx4uhsa",
+								"execute-api",
+								"us-east-1",
+								"amazonaws",
+								"com"
+							],
+							"path": [
+								"Prod",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Login ADMIN",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n        \"username\":\"ivansamuel09@icloud.com\",\n        \"password\":\"7qG#UQD0YPaa\"\n    }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://uwicx4uhsa.execute-api.us-east-1.amazonaws.com/Prod/login",
+							"protocol": "https",
+							"host": [
+								"uwicx4uhsa",
+								"execute-api",
+								"us-east-1",
+								"amazonaws",
+								"com"
+							],
+							"path": [
+								"Prod",
+								"login"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"description": "Holaaaa"
+		},
+		{
+			"name": "Delete a role",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "https://ax7xcrp77f.execute-api.us-east-1.amazonaws.com/Prod/delete_role?id=",
+					"protocol": "https",
+					"host": [
+						"ax7xcrp77f",
+						"execute-api",
+						"us-east-1",
+						"amazonaws",
+						"com"
+					],
+					"path": [
+						"Prod",
+						"delete_role"
+					],
+					"query": [
+						{
+							"key": "id",
+							"value": "",
+							"description": "(Required) "
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete a user",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "https://djng6tq596.execute-api.us-east-1.amazonaws.com/Prod/delete_user?id_user=",
+					"protocol": "https",
+					"host": [
+						"djng6tq596",
+						"execute-api",
+						"us-east-1",
+						"amazonaws",
+						"com"
+					],
+					"path": [
+						"Prod",
+						"delete_user"
+					],
+					"query": [
+						{
+							"key": "id_user",
+							"value": ""
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete a project",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "https://ceexetzgka.execute-api.us-east-1.amazonaws.com/Prod/delete_project?id_project=",
+					"protocol": "https",
+					"host": [
+						"ceexetzgka",
+						"execute-api",
+						"us-east-1",
+						"amazonaws",
+						"com"
+					],
+					"path": [
+						"Prod",
+						"delete_project"
+					],
+					"query": [
+						{
+							"key": "id_project",
+							"value": ""
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete a task",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "https://jk7lulabml.execute-api.us-east-1.amazonaws.com/Prod/delete_task?id_task=9347734f-78d1-4376-b272-49d7d6ff6cd8",
+					"protocol": "https",
+					"host": [
+						"jk7lulabml",
+						"execute-api",
+						"us-east-1",
+						"amazonaws",
+						"com"
+					],
+					"path": [
+						"Prod",
+						"delete_task"
+					],
+					"query": [
+						{
+							"key": "id_task",
+							"value": "9347734f-78d1-4376-b272-49d7d6ff6cd8"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get all projects",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://ceexetzgka.execute-api.us-east-1.amazonaws.com/Prod/get_projects",
+					"protocol": "https",
+					"host": [
+						"ceexetzgka",
+						"execute-api",
+						"us-east-1",
+						"amazonaws",
+						"com"
+					],
+					"path": [
+						"Prod",
+						"get_projects"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get all roles",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://ax7xcrp77f.execute-api.us-east-1.amazonaws.com/Prod/get_roles",
+					"protocol": "https",
+					"host": [
+						"ax7xcrp77f",
+						"execute-api",
+						"us-east-1",
+						"amazonaws",
+						"com"
+					],
+					"path": [
+						"Prod",
+						"get_roles"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get all tasks",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://jk7lulabml.execute-api.us-east-1.amazonaws.com/Prod/get_all_task",
+					"protocol": "https",
+					"host": [
+						"jk7lulabml",
+						"execute-api",
+						"us-east-1",
+						"amazonaws",
+						"com"
+					],
+					"path": [
+						"Prod",
+						"get_all_task"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get task by user",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://jk7lulabml.execute-api.us-east-1.amazonaws.com/Prod/get_tasks?id_user=v2345678-90bc-1def-g234-567890bcdefg",
+					"protocol": "https",
+					"host": [
+						"jk7lulabml",
+						"execute-api",
+						"us-east-1",
+						"amazonaws",
+						"com"
+					],
+					"path": [
+						"Prod",
+						"get_tasks"
+					],
+					"query": [
+						{
+							"key": "id_user",
+							"value": "v2345678-90bc-1def-g234-567890bcdefg"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get all users",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://djng6tq596.execute-api.us-east-1.amazonaws.com/Prod/get_users",
+					"protocol": "https",
+					"host": [
+						"djng6tq596",
+						"execute-api",
+						"us-east-1",
+						"amazonaws",
+						"com"
+					],
+					"path": [
+						"Prod",
+						"get_users"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get my user",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJraWQiOiJqZXU5Vm14cE9WbjV4WWthOVpKQXoyXC8yVFVFMXJwbkNuRGVaanlOdk9PQT0iLCJhbGciOiJSUzI1NiJ9.eyJzdWIiOiI4NGQ4MzRhOC0zMDMxLTcwY2YtZWRiOC01YWVjMTJiMzM5Y2IiLCJjb2duaXRvOmdyb3VwcyI6WyJVc2VycyJdLCJlbWFpbF92ZXJpZmllZCI6dHJ1ZSwiaXNzIjoiaHR0cHM6XC9cL2NvZ25pdG8taWRwLnVzLWVhc3QtMS5hbWF6b25hd3MuY29tXC91cy1lYXN0LTFfR3pFQmJod3N3IiwiY29nbml0bzp1c2VybmFtZSI6Ijg0ZDgzNGE4LTMwMzEtNzBjZi1lZGI4LTVhZWMxMmIzMzljYiIsIm9yaWdpbl9qdGkiOiI1NWE2MDVlNy0wN2E1LTQ2NjQtYjEwNC02MjlhOTY1YmNhNDUiLCJhdWQiOiI1YjFkYmhnanY5N3NscWN0cGhzOGdia3FyNSIsImV2ZW50X2lkIjoiNWU5Y2E1M2EtOWVhOC00MjUyLTg0OGUtYjA4YmFmNjIwZGYyIiwidG9rZW5fdXNlIjoiaWQiLCJhdXRoX3RpbWUiOjE3MjAzOTQzMjYsImV4cCI6MTcyMDM5NzkyNiwiaWF0IjoxNzIwMzk0MzI2LCJqdGkiOiI1YzdhNWJkNy02MjNjLTQxMWQtOGJiZS03OWRhZWVjNGViNmEiLCJlbWFpbCI6InJlZGFscGhhc2lldGVAZ21haWwuY29tIn0.sODhEYV3Z4Dmbt3Zjm7RZx1pslWAG9bR4IOj7ZA8g-92EW9d0TZ6f1BVFyDgLkeXAlyfvULWCTORGgY-Iu3omPFfeJ3xpvFp4I8JgEVdML6PrDDBzuMFd-wTIR56v8s5zqKSTNacEfL1nEZlRnbGbM1tGirAm87f45tYaL5x1A6f06enYuGd673e4_1M-AfwvA1ni0ocBDwBVpELJ31jWl3X5vM-L2L-go26Ia_QlvApjNRNTBLdcnBaT_AgHiJ_kYJNYOoWBkYKWjbYmncN-EoZAGemEBvR23zGYKTq9IKZU_pGHRxxZxcDJ35btdnUJFjg4BFa-HwO6r-EVp4oiQ",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://djng6tq596.execute-api.us-east-1.amazonaws.com/Prod/get_my_user",
+					"protocol": "https",
+					"host": [
+						"djng6tq596",
+						"execute-api",
+						"us-east-1",
+						"amazonaws",
+						"com"
+					],
+					"path": [
+						"Prod",
+						"get_my_user"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Insert a new user",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n        \"full_name\": \"example lol\",\n        \"email\": \"example2@example.com\",\n        \"password\": \"password123\",\n        \"fk_rol\": \"a1234b56-c789-0d12-ef34-567890ab1cd2\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://djng6tq596.execute-api.us-east-1.amazonaws.com/Prod/insert_user",
+					"protocol": "https",
+					"host": [
+						"djng6tq596",
+						"execute-api",
+						"us-east-1",
+						"amazonaws",
+						"com"
+					],
+					"path": [
+						"Prod",
+						"insert_user"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Insert a new task",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"name\": \"aute in enim elit velit\",\n  \"description\": \"esse enim voluptate magna aliqua\",\n  \"date_time_start\": \"1974-03-08T11:55:50.413Z\",\n  \"date_time_end\": \"1974-04-23T13:45:53.940Z\",\n  \"active\": true,\n  \"finished\": false,\n  \"id_user_assigned\": \"v2345678-90bc-1def-g234-567890bcdefg\",\n  \"fk_project\": \"2f863b3c-4e6f-5g33-9504-3g7fcedeed0b\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://jk7lulabml.execute-api.us-east-1.amazonaws.com/Prod/insert_task",
+					"protocol": "https",
+					"host": [
+						"jk7lulabml",
+						"execute-api",
+						"us-east-1",
+						"amazonaws",
+						"com"
+					],
+					"path": [
+						"Prod",
+						"insert_task"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Insert a new role",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n        \"name\": \"Admin3\"\r\n    }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://ax7xcrp77f.execute-api.us-east-1.amazonaws.com/Prod/insert_role",
+					"protocol": "https",
+					"host": [
+						"ax7xcrp77f",
+						"execute-api",
+						"us-east-1",
+						"amazonaws",
+						"com"
+					],
+					"path": [
+						"Prod",
+						"insert_role"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Insert a new project",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n        \"name_project\": \"Project Alpha 2\",\r\n        \"description\": \"First project description\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://ceexetzgka.execute-api.us-east-1.amazonaws.com/Prod/insert_project",
+					"protocol": "https",
+					"host": [
+						"ceexetzgka",
+						"execute-api",
+						"us-east-1",
+						"amazonaws",
+						"com"
+					],
+					"path": [
+						"Prod",
+						"insert_project"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update a role",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n        \"id_rol\": \"a1234b56-c789-0d12-ef34-567890ab1cd2\",\n        \"name\": \"Admin\",\n        \"active\": 1\n    }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://ax7xcrp77f.execute-api.us-east-1.amazonaws.com/Prod/update_role",
+					"protocol": "https",
+					"host": [
+						"ax7xcrp77f",
+						"execute-api",
+						"us-east-1",
+						"amazonaws",
+						"com"
+					],
+					"path": [
+						"Prod",
+						"update_role"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update a user",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n        \"id_user\": \"fa710429-aedd-4bbb-818d-b3f446f8bdb1\",\r\n        \"full_name\": \"example lol\",\r\n        \"email\": \"example@example.com\",\r\n        \"password\": \"password123\",\r\n        \"active\": 1,\r\n        \"fk_rol\": \"a1234b56-c789-0d12-ef34-567890ab1cd2\"\r\n    }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://djng6tq596.execute-api.us-east-1.amazonaws.com/Prod/update_user",
+					"protocol": "https",
+					"host": [
+						"djng6tq596",
+						"execute-api",
+						"us-east-1",
+						"amazonaws",
+						"com"
+					],
+					"path": [
+						"Prod",
+						"update_user"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update a project",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n        \"id_project\": \"1e763a2b-3d5e-4f22-8493-2f6ebedddc9a\",\r\n        \"name_project\": \"Project Alpha\",\r\n        \"description\": \"First project description\",\r\n        \"active\": 1\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://ceexetzgka.execute-api.us-east-1.amazonaws.com/Prod/update_project",
+					"protocol": "https",
+					"host": [
+						"ceexetzgka",
+						"execute-api",
+						"us-east-1",
+						"amazonaws",
+						"com"
+					],
+					"path": [
+						"Prod",
+						"update_project"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update a task",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n        \"id_task\": \"u4567890-12de-3fgh-i456-789012defghi\",\r\n        \"name\": \"Task 2\",\r\n        \"description\": \"Second task description\",\r\n        \"date_time_start\": \"2024-06-06T09:00:00\",\r\n        \"date_time_end\": \"2024-06-06T13:00:00\",\r\n        \"active\": 1,\r\n        \"finished\": 0,\r\n        \"id_user_assigned\": \"v2345678-90bc-1def-g234-567890bcdefg\",\r\n        \"fk_project\": \"2f863b3c-4e6f-5g33-9504-3g7fcedeed0b\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://jk7lulabml.execute-api.us-east-1.amazonaws.com/Prod/update_task",
+					"protocol": "https",
+					"host": [
+						"jk7lulabml",
+						"execute-api",
+						"us-east-1",
+						"amazonaws",
+						"com"
+					],
+					"path": [
+						"Prod",
+						"update_task"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"variable": [
+		{
+			"key": "baseUrl",
+			"value": "https://execute-api.us-east-1.amazonaws.com/Prod",
+			"type": "string"
+		}
+	]
+}
