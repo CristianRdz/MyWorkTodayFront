@@ -1,9 +1,9 @@
 <template>
   <div>
     <div class="v-sheet-container">
-      <v-sheet :elevation="5" border rounded class="half-sheet" color="#F1F1F1" v-if="usuario">
+      <v-sheet :elevation="5" border rounded class="half-sheet" color="#F1F1F1" v-if="user">
         <div class="title flex justify-end text-2xl font-bold py-4">
-          <h1 class="flex-grow text-center">Mi perfil</h1>
+          <h1 class="flex-grow text-center">My Profile</h1>
 
 
           <button
@@ -14,7 +14,7 @@
               id="user-menu-item-1"
           >
             <v-icon dark left color="white"> mdi-logout</v-icon>
-            Cerrar sesion
+            Logout
           </button>
         </div>
         <v-divider
@@ -23,105 +23,27 @@
         ></v-divider>
         <div class="InfoCont">
           <br/>
-          <v-form
-              class="space-y-4 margin"
-              v-model="validUpdateUser"
-              ref="formUpdateUser"
-              @submit.prevent="updateUser"
-          >
+          <v-icon large dark left color="#03071E"> mdi-account-circle </v-icon>
             <v-text-field
-              class="value"
-              v-model="usuario.nombres"
-              outlined
-              dense
-              label="Nombres"
-              required
-              :rules="[
-                (v) => !!v || 'Nombres es requerido',
+                class="value"
+                v-model="user.full_name"
+                outlined
+                dense
+                label="Full name"
+                required
+                readonly
+                :rules="[
+                (v) => !!v || 'Name is required',
                 (v) =>
                   (v.length <= 30 && v.length >= 3) ||
                   'El nombre debe tener entre 3 y 30 caracteres',
               ]"
             ></v-text-field>
-            <v-divider
-                :thickness="7"
-                color="black"
-                class="border-opacity-75"
-            ></v-divider>
-            <v-text-field
-                class="value"
-                v-model="usuario.primerApellido"
-                outlined
-                dense
-                label="Primer apellido"
-                required
-                :rules="[
-                (v) => !!v || 'Primer apellido es requerido',
-                (v) =>
-                  (v.length <= 30 && v.length >= 3) ||
-                  'El apellido debe tener entre 3 y 30 caracteres',
-              ]"
-            ></v-text-field>
-            <v-divider
-                :thickness="7"
-                color="black"
-                class="border-opacity-75"
-            ></v-divider>
-            <v-text-field
-                class="value"
-                v-model="usuario.segundoApellido"
-                outlined
-                dense
-                label="Segundo apellido"
-                required
-                :rules="[
-                (v) => !!v || 'Segundo apellido es requerido',
-                (v) =>
-                  (v.length <= 30 && v.length >= 3) ||
-                  'El apellido debe tener entre 3 y 30 caracteres',
-              ]"
-            ></v-text-field>
-            <v-divider
-                :thickness="7"
-                color="black"
-                class="border-opacity-75"
-            ></v-divider>
-            <v-text-field
-                class="value"
-                v-model="usuario.telefono"
-                outlined
-                dense
-                label="Teléfono"
-                required
-                :rules="[
-                (v) => !!v || 'Teléfono es requerido',
-                (v) => /^[0-9]{10}$/.test(v) || 'Teléfono no es válido',
-              ]"
-            ></v-text-field>
-            <v-divider
-                :thickness="7"
-                color="black"
-                class="border-opacity-75"
-            ></v-divider>
-            <div class="actions">
-              <v-btn icon color="blue" type="submit">
-                <v-icon>mdi-pencil</v-icon>
-              </v-btn>
-            </div>
-          </v-form>
         </div>
       </v-sheet>
 
 
     </div>
-
-    <footer class="footer">
-      <p>
-        Tus datos en Foodster son completamente privados y seguros. Respetamos
-        tu privacidad en todo momento.
-      </p>
-      <p>© 2024 Foodster. Todos los derechos reservados.</p>
-    </footer>
   </div>
 </template>
 
@@ -132,29 +54,11 @@ import UsersServices from "@/services/UsersServices";
 export default {
   data() {
     return {
-      dialogCambio: false,
-      validUpdateUser: true,
-      validUpdateDireccion: true,
-      dialog: false,
-      rating: null,
-      usuario: {},
-      direcciones: [],
-      eventos: [],
       loading: false,
-      calificacion: "",
-      userName: "",
-      servicios: [],
-      nuevaDireccion: {
-        calle: "", //
-        colonia: "", //
-        numero: "", //
-        municipio: "",
-        estado: "",
-        codigoPostal: "",
-        referencias: "", ///
-      },
+      user: {},
     };
   },
+
   methods: {
     signOut() {
       this.loading = true;
@@ -164,13 +68,13 @@ export default {
     },
     async getMyUser() {
       this.loading = true;
-      this.usuario = await UsersServices.getMyUser();
+      this.user = await UsersServices.getMyUser();
       this.loading = false;
     },
     async updateUser() {
       if (this.$refs.formUpdateUser.validate()) {
         this.loading = true;
-        await UsersServices.update(this.usuario);
+        await UsersServices.update(this.user);
         await this.getMyUser();
         this.loading = false;
       }
@@ -178,24 +82,8 @@ export default {
 
   },
 
-  watch: {
-    dialog(val) {
-      if (!val) {
-        this.nuevaDireccion = {
-          calle: "",
-          colonia: "",
-          numero: "",
-          municipio: "",
-          estado: "",
-          codigoPostal: "",
-          referencias: "",
-        };
-      }
-    },
-  },
-
   mounted() {
-
+    this.getMyUser();
   },
 };
 </script>

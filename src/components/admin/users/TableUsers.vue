@@ -1,14 +1,14 @@
 <template>
   <v-card>
     <v-card-title color-te>
-      Usuarios
+      Users
       <v-divider class="mx-4" inset vertical></v-divider>
       <v-spacer></v-spacer>
       <v-text-field v-model="search" append-icon="mdi-magnify" hide-details label="Buscar" single-line></v-text-field>
       <v-spacer></v-spacer>
       <v-dialog v-model="dialog" max-width="500px">
         <template v-slot:activator="{ on }">
-          <v-btn class="mb-2" color="#0091EA" dark v-on="on">
+          <v-btn class="mb-2" color="green" dark v-on="on">
             <v-icon dark>mdi-plus</v-icon>
           </v-btn>
         </template>
@@ -44,8 +44,8 @@
             </v-card-text>
             <v-card-actions>
               <v-spacer></v-spacer>
-              <v-btn color="blue darken-1" text @click="closeModalAddUsuario">Cancelar</v-btn>
-              <v-btn color="blue darken-1" text type="submit">Guardar</v-btn>
+              <v-btn color="red darken-1" text @click="closeModalAddUsuario">Cancel</v-btn>
+              <v-btn color="green darken-1" text type="submit">Save</v-btn>
             </v-card-actions>
           </v-form>
         </v-card>
@@ -73,7 +73,7 @@
           <td class="text-start">{{ item.full_name }}</td>
           <td class="text-start">{{ item.email }}</td>
           <td class="text-start">
-            <v-chip :color="item.active ? 'green' : 'red'" outlined small @click="changeStatus(item.idUsuario)">
+            <v-chip :color="item.active ? 'green' : 'red'" outlined small @click="changeStatus(item.id_user)">
               {{ item.active ? 'Activo' : 'Inactivo' }}
             </v-chip>
           </td>
@@ -81,8 +81,15 @@
             {{ (roles.find(role => role.id_rol === item.fk_rol) || {}).name }}
           </td>
           <td class="text-center">
-            <v-icon color="blue" @click="editItem(item)">mdi-pencil</v-icon>
-            <v-icon color="red" @click="deleteUser(item.idUsuario)">mdi-delete</v-icon>
+            <v-btn class="m-1" color="blue" @click="editItem(item)">
+              <v-icon color="white" @click="editItem(item)">mdi-pencil</v-icon>
+            </v-btn>
+            <v-btn
+                :loading="loading"
+                class="m-1"
+                   color="red" @click="deleteUser(item.id_user)">
+              <v-icon color="white">mdi-delete</v-icon>
+            </v-btn>
           </td>
         </tr>
       </template>
@@ -108,8 +115,10 @@
           </v-card-text>
           <v-card-actions>
             <v-spacer></v-spacer>
-            <v-btn color="blue darken-1" text @click="cancelEdit">Cancelar</v-btn>
-            <v-btn color="blue darken-1" text type="submit">Guardar</v-btn>
+            <v-btn color="red darken-1" text @click="cancelEdit">Cancel</v-btn>
+            <v-btn :loading="loading"
+                   color="green darken-1" text type="submit">Save
+            </v-btn>
           </v-card-actions>
         </v-card>
       </v-form>
@@ -122,6 +131,8 @@
 import usersServices from '../../../services/UsersServices'
 import rolesService from '../../../services/RolesService'
 import moment from 'moment'
+import swalService from "@/services/SwalService";
+import ProjectsService from "@/services/ProjectsService";
 
 export default {
   data() {
@@ -167,10 +178,7 @@ export default {
     await this.getRoles();
   },
   methods: {
-    formatDateTime(dateTimeString) {
-      //mexico city time
-      return moment(dateTimeString).format("YYYY-MM-DD HH:mm");
-    },
+
     async getUsers() {
       try {
         this.loading = true;
@@ -184,17 +192,23 @@ export default {
     },
     async getRoles() {
       try {
-        const response = await rolesService.getRoles();
-        this.roles = response;
+        this.roles = await rolesService.getRoles();
       } catch (error) {
         console.log(error)
       }
     },
     //NOT FOUND, THIS METHOD NOT EXIST IN THE API
-    async changeStatus(idUsuario) {
+    async changeStatus(id_user) {
       try {
-        await usersServices.changeStatus(idUsuario);
-        await this.getUsers();
+        const result = await swalService.confirmationWarning(
+            "Are you sure you want to change to disable this user?"
+        );
+        if (result) {
+          this.loading = true;
+          await usersServices.changeStatus(id_user);
+          await this.getUsers();
+          this.loading = false;
+        }
       } catch (error) {
         console.log(error)
       }
@@ -212,17 +226,21 @@ export default {
     async addUsuario() {
       try {
         if (this.$refs.formAgregar.validate()) {
+          this.loading = true;
           await usersServices.insert(this.nuevoUsuario);
           await this.getUsers();
           this.dialog = false;
+          this.loading = false;
           this.nuevoUsuario = {
             full_name: '',
             email: '',
             active: '1',
             fk_rol: "",
           }
+
         }
       } catch (error) {
+        this.loading = false;
         console.log(error);
       }
     },
@@ -256,10 +274,17 @@ export default {
         console.log(error);
       }
     },
-    async deleteUser(idUsuario) {
+    async deleteUser(id_user) {
       try {
-        await usersServices.deleteUser(idUsuario);
-        await this.getUsers();
+        const result = await swalService.confirmationWarning(
+            "Are you sure you want to delete this user?"
+        );
+        if (result) {
+          this.loading = true;
+          await usersServices.deleteUser(id_user);
+          await this.getUsers();
+          this.loading = false;
+        }
       } catch (error) {
         console.log(error);
       }

@@ -12,7 +12,7 @@
               variant="outlined"
               @click="setToday"
           >
-            Hoy
+            Today
           </v-btn>
           <v-btn
               color="secondary"
@@ -58,13 +58,13 @@
             </template>
             <v-list>
               <v-list-item @click="type = 'day'">
-                <v-list-item-title>Dia</v-list-item-title>
+                <v-list-item-title>Day</v-list-item-title>
               </v-list-item>
               <v-list-item @click="type = 'week'">
-                <v-list-item-title>Semana</v-list-item-title>
+                <v-list-item-title>Week</v-list-item-title>
               </v-list-item>
               <v-list-item @click="type = 'month'">
-                <v-list-item-title>Mes</v-list-item-title>
+                <v-list-item-title>Month</v-list-item-title>
               </v-list-item>
             </v-list>
           </v-menu>
@@ -72,10 +72,10 @@
       </v-sheet>
       <v-sheet height="600">
         <v-calendar
-            locale="es-MX"
+            locale="eng-us"
             ref="calendar"
             v-model="focus"
-            :events="eventos"
+            :events="tasks"
             :type="type"
             color="primary"
             @click:date="viewDay"
@@ -105,72 +105,46 @@
                 <v-icon>mdi-close</v-icon>
               </v-btn>
             </v-toolbar>
-            <v-card-text>
+            <v-card-text class="mt-4">
+              <div>
+                <v-icon left>mdi-text</v-icon>
+                <span>Description: </span>
+                <span>{{ selectedEvent.details.description }}</span>
+              </div>
               <div>
                 <v-icon left>mdi-check</v-icon>
-                <span>Estado: </span>
-                <span>{{ selectedEvent.details.estado }}</span>
+                <span>Finished: </span>
+                <span>{{ selectedEvent.details.finished ? 'Yes' : 'No' }}</span>
               </div>
 
               <div>
                 <v-icon left>mdi-calendar</v-icon>
-                <span>Fecha y Hora de Inicio: </span>
+                <span>Start Date and Time: </span>
                 <span>{{ formatDateTime(selectedEvent.start) }}</span>
               </div>
               <div>
                 <v-icon left>mdi-calendar</v-icon>
-                <span>Fecha y Hora de Fin: </span>
+                <span>End Date and Time: </span>
                 <span>{{ formatDateTime(selectedEvent.end) }}</span>
-              </div>
-              <div class="mt-4">
-                <h4>Personal del evento:</h4>
-                <v-expansion-panels>
-                  <v-expansion-panel
-                      v-for="(personal, index) in selectedEvent.details.personal"
-                      :key="index"
-                  >
-                    <v-expansion-panel-header>
-                      {{ personal.personal.usuarios.nombres }}
-                    </v-expansion-panel-header>
-                    <v-expansion-panel-content>
-                      <p>
-                        <v-icon small class="mr-2">mdi-account-outline</v-icon>
-                        Nombre: {{ personal.personal.usuarios.nombres }} {{ personal.personal.usuarios.primerApellido }}
-                        {{ personal.personal.usuarios.segundoApellido }}
-                      </p>
-                      <p>
-                        <v-icon small class="mr-2">mdi-account-outline</v-icon>
-                        Teléfono: {{ personal.personal.usuarios.telefono }}
-                      </p>
-                      <p>
-                        <v-icon small class="mr-2">mdi-account-outline</v-icon>
-                        Correo: {{ personal.personal.usuarios.correo }}
-                      </p>
-                      <p>
-                        <v-icon small class="mr-2">mdi-account-outline</v-icon>
-                        Cargo: {{ personal.personal.categoria.nombre }}
-                      </p>
-                    </v-expansion-panel-content>
-                  </v-expansion-panel>
-                </v-expansion-panels>
               </div>
 
 
             </v-card-text>
             <v-card-actions>
               <v-btn
-                  color="secondary"
+                  color="red"
+                  dark
                   variant="text"
                   @click="closeModal"
               >
-                Cerrar
+                Close
               </v-btn>
               <v-btn
-                  color="secondary"
+                  color="success"
                   variant="text"
                   @click="setFinalizado(selectedEvent.details)"
               >
-                Finalizar
+                Mark as Finished
               </v-btn>
             </v-card-actions>
           </v-card>
@@ -186,9 +160,9 @@ import {onMounted, ref} from 'vue'
 const calendar = ref()
 
 const typeToLabel = {
-  month: 'Mes',
-  week: 'Semana',
-  day: 'Dia',
+  month: 'Month',
+  week: 'Week',
+  day: 'Day',
 
 }
 
@@ -223,6 +197,7 @@ function next() {
 
 <script>
 import {getEventosByPersonalIdUsuario, setFinalizarEvento} from "@/services/EventosServices";
+import TaskService from "@/services/TaskService";
 import moment from "moment/moment";
 
 export default {
@@ -239,11 +214,12 @@ export default {
     selectedEvent: {},
     selectedElement: null,
     selectedOpen: false,
-    eventos: [],
+    tasks: [],
     colors: ['blue', 'indigo', 'deep-purple', 'cyan', 'green', 'orange', 'grey darken-1'],
   }),
-  mounted() {
+  async mounted() {
     this.$refs.calendar.checkChange()
+    await this.fetchTasks()
   },
   methods: {
     showEvent({nativeEvent, event}) {
@@ -280,12 +256,20 @@ export default {
     next() {
       this.$refs.calendar.next()
     },
-    convertToEvents(json) {
+   /* //"name": "aute in enim elit velit",
+    "description": "esse enim voluptate magna aliqua",
+    "date_time_start": "1974-03-08T11:55:50.413Z",
+    "date_time_end": "1974-04-23T13:45:53.940Z",
+    "active": true,
+    "finished": false,
+    "id_user_assigned": "v2345678-90bc-1def-g234-567890bcdefg",
+    "fk_project": "2f863b3c-4e6f-5g33-9504-3g7fcedeed0b*/
+    convertToTasks(json) {
       return json.map(evento => ({
-        name: evento.usuario.nombres,
-        start: new Date(evento.fechaHoraInicio),
-        end: new Date(evento.fechaHoraFin),
-        color: 'secondary',
+        name: evento.name,
+        start: new Date(evento.date_time_start),
+        end: new Date(evento.date_time_end),
+        color: 'blue',
         timed: true,
         details: evento,
       }));
@@ -299,22 +283,23 @@ export default {
       try {
 
         await setFinalizarEvento(evento.idEvento)
-        this.eventos = []
-        await this.fetchEvents()
+        this.tasks = []
+        await this.fetchTasks()
         this.closeModal()
       } catch (e) {
         console.log(e)
       }
     },
 
-    async fetchEvents() {
+    async fetchTasks() {
       try {
-        let eventos = await getEventosByPersonalIdUsuario()
-        this.eventos = this.convertToEvents(eventos)
+        let tasks = await TaskService.getMyTask()
+        this.tasks = this.convertToTasks(tasks)
       } catch (e) {
         console.log(e)
       }
     },
   },
+
 }
 </script>

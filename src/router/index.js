@@ -16,15 +16,11 @@ const router = new VueRouter({
         }, {
             path: "/admin/users", name: "users", component: () => import("../components/admin/users/TableUsers.vue"),
         }, {
-            path: "/admin/eventos",
-            name: "eventos",
-            component: () => import("../components/admin/eventos/TableEventos.vue"),
-        }, {
-            path: "/admin/perfil", name: "perfilAdmin", component: () => import("../components/public/Profile.vue"),
-        },{
-            path: "/admin/personalEvento", name: "personalEvento", component: () => import("../components/admin/personalEvento/TablePersonalEvento.vue"),
+            path: "/admin/profile", name: "profileAdmin", component: () => import("../components/public/Profile.vue"),
         },{
             path: "/admin/projects", name: "projects", component: () => import("../components/admin/projects/TableProject.vue"),
+        },{
+            path: "/admin/tasks", name: "tasks", component: () => import("../components/admin/tasks/TableTask.vue"),
         }
     
     ],
@@ -39,9 +35,9 @@ const router = new VueRouter({
             component: () => import("../components/public/Landing-pages/LandingPage.vue"),
         }, {
 
-            path: "/home/perfil/",
+            path: "/home/profile/",
             meta: {auth: true},
-            name: "perfil",
+            name: "profile",
             component: () => import("../components/public/Profile.vue")
 
 
@@ -51,7 +47,7 @@ const router = new VueRouter({
             beforeEnter: (to, from, next) => {
                 const auth = useAuthStore();
                 if (auth.user) {
-                    next({ name: 'perfil' });
+                    next({ name: 'profile' });
                 } else {
                     next();
                 }
@@ -95,8 +91,8 @@ const router = new VueRouter({
         children: [{
             path: "/", name: "eventos", component: () => import("../components/personal/components/Eventos.vue"),
         }, {
-            path: "/personal/perfil",
-            name: "perfilPersonal",
+            path: "/personal/profile",
+            name: "profilePersonal",
             component: () => import("../components/public/Profile.vue"),
         }],
     }, {

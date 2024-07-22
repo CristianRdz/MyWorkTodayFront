@@ -50,10 +50,12 @@ function handleResponse(response) {
     if (response.status > 400) {
         const { user } = useAuthStore();
         if ([401].includes(response.status) && user) {
-            showNotification('error', 'Recurso mal solicitado o no autorizado');
+            showNotification("error", "Session expired");
+            this.useAuthStore().logout();
         }
         const error = data?.message || response.statusText;
         return Promise.reject(error);
     }
+    data.message ? showNotification(response.status === 200 ? "success" : "error", data.message) : null;
     return data;
 }

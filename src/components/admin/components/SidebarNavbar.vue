@@ -12,19 +12,19 @@
             <span class="mt-2">Home</span>
           </a>
 
-          <a href="/admin/eventos" class="text-indigo-100 hover:bg-gray-800 hover:text-white group w-full p-3 rounded-md flex flex-col items-center text-xs font-medium">
+          <a href="/admin/tasks" class="text-indigo-100 hover:bg-gray-800 hover:text-white group w-full p-3 rounded-md flex flex-col items-center text-xs font-medium">
             <v-icon color="white"> mdi-calendar </v-icon>
-            <span class="mt-2">Eventos</span>
+            <span class="mt-2">Tasks</span>
           </a>
 
           <a href="/admin/users" class="text-indigo-100 hover:bg-gray-800 hover:text-white group w-full p-3 rounded-md flex flex-col items-center text-xs font-medium">
             <v-icon color="white"> mdi-account </v-icon>
-            <span class="mt-2">Usuarios</span>
+            <span class="mt-2">Users</span>
           </a>
-          <a href="/admin/personalEvento" class="text-indigo-100 hover:bg-gray-800 hover:text-white group w-full p-3 rounded-md flex flex-col items-center text-xs font-medium">
-                    <v-icon color="white"> mdi-account-multiple </v-icon>
-                    <span class="mt-2">Asignar personal</span>
-                  </a>
+          <a href="/admin/projects" class="text-indigo-100 hover:bg-gray-800 hover:text-white group w-full p-3 rounded-md flex flex-col items-center text-xs font-medium">
+            <v-icon color="white"> mdi-folder-multiple </v-icon>
+            <span class="mt-2">Projects</span>
+          </a>
         </div>
       </div>
     </div>
@@ -52,18 +52,18 @@
                     <span class="mt-2">Home</span>
                   </a>
 
-                  <a href="/admin/eventos" class="text-indigo-100 hover:bg-gray-800 hover:text-white group w-full p-3 rounded-md flex flex-col items-center text-xs font-medium">
+                  <a href="/admin/tasks" class="text-indigo-100 hover:bg-gray-800 hover:text-white group w-full p-3 rounded-md flex flex-col items-center text-xs font-medium">
                     <v-icon color="white"> mdi-calendar </v-icon>
-                    <span class="mt-2">Eventos</span>
+                    <span class="mt-2">Tasks</span>
                   </a>
 
                   <a href="/admin/users" class="text-indigo-100 hover:bg-gray-800 hover:text-white group w-full p-3 rounded-md flex flex-col items-center text-xs font-medium">
                     <v-icon color="white"> mdi-account </v-icon>
                     <span class="mt-2">Usuarios</span>
                   </a>
-                  <a href="/admin/personalEvento" class="text-indigo-100 hover:bg-gray-800 hover:text-white group w-full p-3 rounded-md flex flex-col items-center text-xs font-medium">
-                    <v-icon color="white"> mdi-account-multiple </v-icon>
-                    <span class="mt-2">Asignar personal</span>
+                  <a href="/admin/projects" class="text-indigo-100 hover:bg-gray-800 hover:text-white group w-full p-3 rounded-md flex flex-col items-center text-xs font-medium">
+                    <v-icon color="white"> mdi-folder-multiple </v-icon>
+                    <span class="mt-2">Proyectos</span>
                   </a>
               </div>
             </nav>
@@ -98,15 +98,14 @@
                 </div>
 
                 <div v-show="menuOpen" class="origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5 focus:outline-none" role="menu" aria-orientation="vertical" aria-labelledby="user-menu-button" tabindex="-1">
-                  <a href="/admin/perfil" class="block px-4 py-2 text-sm text-gray-700" role="menuitem" tabindex="-1" id="user-menu-item-0">
+                  <a href="/admin/profile" class="block px-4 py-2 text-sm text-gray-700" role="menuitem" tabindex="-1" id="user-menu-item-0">
                     <v-icon dark left color="#03071E"> mdi-account-circle </v-icon>
-                    Perfil</a
-                  >
+                    Profile</a>
                   <v-divider></v-divider>
 
                   <button @click="signOut" class="block px-4 py-2 text-sm text-gray-700" role="menuitem" tabindex="-1" id="user-menu-item-1">
                     <v-icon dark left color="red"> mdi-arrow-left </v-icon>
-                    Cerrar sesion
+                    Logout
                   </button>
                 </div>
               </div>

@@ -8,11 +8,18 @@
           v-model="searchProjects"
           append-icon="mdi-magnify"
           hide-details
-          label="Buscar"
+          label="Search..."
           single-line
       ></v-text-field>
       <v-spacer></v-spacer>
+      <project-form
+          :visible="dialogFormProject"
+          :loading="loading"
+          :fetch="getAllProjects"
+          :project="null"
+      ></project-form>
     </v-card-title>
+
 
     <v-data-table
         :footer-props="{
@@ -30,7 +37,10 @@
         style="height: auto; max-height: 500px; overflow-y: auto"
 
     >
+
+
       <template v-slot:item="{ item }">
+
 
         <tr>
           <td class="text-start">{{ item.name_project }}</td>
@@ -38,27 +48,36 @@
 
           <td class="text-start">
             <v-chip :color="item.active ? 'green' : 'red'" outlined small>{{
-                item.active ? "Activo" : "Inactivo"
+                item.active ? "Active" : "Unactive"
               }}
             </v-chip>
           </td>
           <td class="text-center">
-            <v-icon color="blue" @click="editItemProjects(item.id_project)">
-              mdi-pencil
-            </v-icon>
-            <v-icon color="red" @click="deleteItemProjects(item.id_project)"
-            >mdi-delete
-            </v-icon
+
+            <ProjectForm
+                class="m-1"
+                :visible="dialogFormProject"
+                :loading="loading"
+                :fetch="getAllProjects"
+                :project="item"
+            ></ProjectForm>
+            <v-btn
+                :loading="loading"
+                color="red"
+                class="m-1"
+                @click="deleteItemProjects(item.id_project)"
             >
+              <v-icon color="white"
+              >mdi-delete
+              </v-icon
+              >
+            </v-btn>
           </td>
         </tr>
       </template>
     </v-data-table>
-    <ProjectForm
-        :visible="dialogFormProject"
-        :openClose="openCloseDialog"
-        :project="idProjects"
-    ></ProjectForm>
+
+
   </v-card>
 </template>
 
@@ -114,29 +133,16 @@ export default {
   },
 
   methods: {
-    openCloseDialog() {
-      this.dialogFormProject = !this.dialogFormProject;
-    },
-    async editItemProjects(idProjects) {
-      this.idProjects = idProjects;
-      this.openCloseDialog();
 
-      this.idProjects = null;
-    },
-    async findItemProject(idProjects) {
-      return this.projects.find((project) => project.id_project === idProjects);
-    },
-
-    formatDateTime(date) {
-      return moment(date).format("DD/MM/YYYY HH:mm");
-    },
     async deleteItemProjects(idProjects) {
       const result = await swalService.confirmationWarning(
           "¿Estás seguro de eliminar este evento?"
       );
-      if (result.isConfirmed) {
+      if (result) {
+        this.loading = true;
         await ProjectsService.deleteProject(idProjects);
         await this.getAllProjects();
+        this.loading = false;
       }
     },
     async getAllProjects() {
@@ -147,6 +153,20 @@ export default {
   },
   mounted() {
     this.getAllProjects();
+  },
+  watch: {
+    searchProjects: function (val) {
+      if (val) {
+        this.projects = this.projects.filter((item) => {
+          return item.name_project
+                  .toLowerCase()
+                  .includes(val.toLowerCase()) ||
+              item.description.toLowerCase().includes(val.toLowerCase());
+        });
+      } else {
+        this.getAllProjects();
+      }
+    },
   },
 };
 </script>

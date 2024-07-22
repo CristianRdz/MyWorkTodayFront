@@ -5,48 +5,40 @@ let baseUrl = `https://djng6tq596.execute-api.us-east-1.amazonaws.com/Prod`;
 
 const getUsers = async () => {
     try {
-        const response = await axiosClient.get(`${baseUrl}/get_users`);
-        console.log(response)
-        return response;
+        return await axiosClient.get(`${baseUrl}/get_users`);
     } catch (error) {
-        showNotification("error", "Error getting users")
+        showNotification("error", "Server error")
     }
 }
 
 const getMyUser = async () => {
     try {
-        const response = await axiosClient.get(`${baseUrl}/get_my_user`);
-        return response;
+        return await axiosClient.get(`${baseUrl}/get_my_user`);
     } catch (error) {
-        showNotification("error", "Error al obtener usuario");
+        showNotification("error", "Server error")
     }
 
 }
 
 const insert = async (user) => {
     try {
-        const response = await axiosClient.post(`${baseUrl}/insert_user`, user);
-        response ? showNotification("success", "Usuario creado") : showNotification("error", "Error al crear usuario")
-        return response;
+        return await axiosClient.post(`${baseUrl}/insert_user`, user);
     } catch (error) {
-        showNotification("error", "Error al crear usuario")
+        showNotification("error", "Server error")
     }
 };
 const deleteUser = async (id_usuarios) => {
     try {
-        const response = await axiosClient.delete(`${baseUrl}/delete_user?id_user=${id_usuarios}`);
-        response ? showNotification("success", "Usuario eliminado") : showNotification("error", "Error al eliminar usuario")
+        await axiosClient.delete(`${baseUrl}/delete_user?id_user=${id_usuarios}`);
     } catch (error) {
-        showNotification("error", "Error al eliminar usuario")
+        showNotification("error", "Server error")
     }
 };
 const update = async (users) => {
     try {
-        const response = await axiosClient.put(`${baseUrl}/update_user`, users);
-        response ? showNotification("success", "Usuario actualizado") : showNotification("error", "Error al actualizar usuario")
-        return response;
+        return await axiosClient.put(`${baseUrl}/update_user`, users);
     } catch (error) {
-        showNotification("error", "Error al actualizar usuario")
+        showNotification("error", "Server error")
 
     }
 };

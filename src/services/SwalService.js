@@ -7,7 +7,7 @@ Vue.use(VueSweetalert2);
 const SweetAlertService = {
     success(message) {
         Vue.swal({
-            icon: 'success', title: 'Éxito', text: message,
+            icon: 'success', title: 'Success', text: message,
         });
     },
 
@@ -19,20 +19,20 @@ const SweetAlertService = {
 
     warning(message) {
         Vue.swal({
-            icon: 'warning', title: 'Advertencia', text: message,
+            icon: 'warning', title: 'Warning', text: message,
         });
     },
 
     info(message) {
         Vue.swal({
-            icon: 'info', title: 'Información', text: message,
+            icon: 'info', title: 'Info', text: message,
         });
     },
 
     async confirmationWarning(message) {
         let result = await Vue.swal({
             icon: 'warning',
-            title: 'Advertencia',
+            title: 'Warning',
             text: message,
             showCancelButton: true,
             confirmButtonText: 'Aceptar',

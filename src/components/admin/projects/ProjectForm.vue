@@ -1,8 +1,8 @@
 <template>
   <v-dialog v-model="visible" max-width="600px" persistent>
     <template v-slot:activator="{ on, attrs }">
-      <v-btn color="green" dark v-bind="attrs" v-on="on">
-        <v-icon>mdi-plus</v-icon>
+      <v-btn :color="project ? 'blue' : 'green'" dark v-on="on" v-bind="attrs">
+        <v-icon>{{ project ? 'mdi-pencil' : 'mdi-plus' }}</v-icon>
       </v-btn>
     </template>
     <v-form ref="form" @submit.prevent="saveProject">
@@ -41,13 +41,17 @@
         </v-card-text>
         <v-card-actions>
           <v-spacer></v-spacer>
-          <v-btn color="red" text @click="openClose"> Cancelar</v-btn>
           <v-btn
+              :disabled="this.loading"
+              color="red" text @click="close"> Cancel
+          </v-btn>
+          <v-btn
+              :loading="this.loading"
               color="green"
               text
               type="submit"
           >
-            Guardar
+            Save
           </v-btn>
         </v-card-actions>
       </v-card>
@@ -62,12 +66,12 @@ import ProjectsService from "@/services/ProjectsService";
 export default {
   props: {
     visible: Boolean,
-    openClose: Function,
     project: Object,
-    findProjects: Function,
+    fetch: Function,
   },
   data() {
     return {
+      loading: false,
       projectNew: {
         name_project: '',
         description: '',
@@ -83,24 +87,47 @@ export default {
   methods: {
     loadProject() {
       if (this.project) {
-        this.projectNew = this.findProjects(this.project.id_project);
-        console.log(this.projectNew);
+        this.projectNew = {
+          name_project: this.project.name_project,
+          description: this.project.description,
+          active: this.project.active,
+          id_project: this.project.id_project,
+        };
       }
+    },
+    async close() {
+      this.visible = false;
+      this.projectNew = {
+        name_project: '',
+        description: '',
+        active: true,
+        id_project: null,
+      };
     },
     async saveProject() {
       if (this.$refs.form.validate()) {
+        this.loading = true;
         if (this.project) {
           await ProjectsService.update(this.projectNew)
         } else {
           await ProjectsService.insert(this.projectNew)
         }
-        this.openClose();
+        this.loading = false;
+        await this.fetch();
+        await this.close();
       }
     },
 
   },
   mounted() {
     this.loadProject();
+  },
+  watch: {
+    visible(newVal) {
+      if (newVal) {
+        this.loadProject();
+      }
+    }
   },
 };
 </script>
