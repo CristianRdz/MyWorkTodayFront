@@ -23,6 +23,8 @@ const router = new VueRouter({
             path: "/admin/perfil", name: "perfilAdmin", component: () => import("../components/public/Profile.vue"),
         },{
             path: "/admin/personalEvento", name: "personalEvento", component: () => import("../components/admin/personalEvento/TablePersonalEvento.vue"),
+        },{
+            path: "/admin/projects", name: "projects", component: () => import("../components/admin/projects/TableProject.vue"),
         }
     
     ],

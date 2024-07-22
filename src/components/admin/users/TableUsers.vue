@@ -34,19 +34,8 @@
                     ></v-text-field>
                   </v-col>
                   <v-col cols="12" md="4" sm="6">
-                    <v-text-field v-model="nuevoUsuario.contrasena" :rules="passwordRules"
-                                  label="Contraseña"
-                    ></v-text-field>
-                  </v-col>
-                  <v-col cols="12" md="4" sm="6">
-                    <v-text-field
-                        :rules="[v => !!v || 'Confirme la contraseña', v => (v === nuevoUsuario.contrasena) || 'Las contraseñas no coinciden']"
-                        label="Confirmar contraseña"
-                    ></v-text-field>
-                  </v-col>
-                  <v-col cols="12" md="4" sm="6">
-                    <v-select v-model="nuevoUsuario.roles[0].id_rol" :items="roles"
-                              :rules="[v => !!v || 'Seleccione un rol']" item-text="nombre"
+                    <v-select v-model="nuevoUsuario.fk_rol" :items="roles"
+                              :rules="[v => !!v || 'Seleccione un rol']" item-text="name"
                               item-value="id_rol" label="Rol">
                     </v-select>
                   </v-col>
@@ -173,9 +162,9 @@ export default {
       ],
     }
   },
-  mounted() {
-    this.getUsers();
-    this.getRoles();
+  async mounted() {
+    await this.getUsers();
+    await this.getRoles();
   },
   methods: {
     formatDateTime(dateTimeString) {
@@ -196,7 +185,6 @@ export default {
     async getRoles() {
       try {
         const response = await rolesService.getRoles();
-        console.log(response)
         this.roles = response;
       } catch (error) {
         console.log(error)
