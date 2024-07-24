@@ -13,23 +13,28 @@ export const useAuthStore = defineStore({
         async login(username, password) {
             try {
                 let userInfo = await axiosClient.post(`${baseUrl}/`, {username, password});
-                userInfo ? showNotification('success', 'Welcome') : showNotification('error', 'User or password incorrect');
-                this.user = userInfo;
-                localStorage.setItem('user', JSON.stringify(userInfo));
-                let route;
-                switch (this.user.role) {
-                    case 'Admins':
-                        route = '/admin/'
-                        break;
-                    case 'Users':
-                        route = '/personal/'
-                        break;
-                    default:
-                        route = '/'
-                        break;
+                if (userInfo.id_token) {
+                    showNotification('success', 'Welcome')
+                    this.user = userInfo;
+                    localStorage.setItem('user', JSON.stringify(userInfo));
+                    let route;
+                    switch (this.user.role) {
+                        case 'Admins':
+                            route = '/admin/'
+                            break;
+                        case 'Users':
+                            route = '/personal/'
+                            break;
+                        default:
+                            route = '/'
+                            break;
+                    }
+                    this.returnUrl = route;
+                    await router.push(route);
+                }else {
+                    showNotification('error', 'User or password incorrect');
                 }
-                this.returnUrl = route;
-                await router.push(route);
+
             } catch (e) {
                 console.error(e);
                 showNotification('error', 'User or password incorrect');

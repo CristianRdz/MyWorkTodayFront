@@ -7,7 +7,8 @@
         >
           <v-btn
               class="me-4"
-              color="secondary"
+              color="blue"
+              dark
 
               variant="outlined"
               @click="setToday"
@@ -15,7 +16,8 @@
             Today
           </v-btn>
           <v-btn
-              color="secondary"
+              color="blue"
+              dark
               size="small"
               class="mr-2"
               variant="text"
@@ -27,7 +29,8 @@
             </v-icon>
           </v-btn>
           <v-btn
-              color="secondary"
+              color="blue"
+              dark
               size="small"
               class="mr-2"
               variant="text"
@@ -45,7 +48,8 @@
           <v-menu location="bottom end">
             <template v-slot:activator="{ on, attrs }">
               <v-btn
-                  color="secondary"
+                  color="blue"
+                  dark
                   variant="outlined"
                   v-bind="attrs"
                   v-on="on"
@@ -139,7 +143,7 @@
               >
                 Close
               </v-btn>
-              <v-btn
+              <v-btn v-if="!selectedEvent.details.finished"
                   color="success"
                   variant="text"
                   @click="setFinalizado(selectedEvent.details)"
@@ -196,7 +200,6 @@ function next() {
 </script>
 
 <script>
-import {getEventosByPersonalIdUsuario, setFinalizarEvento} from "@/services/EventosServices";
 import TaskService from "@/services/TaskService";
 import moment from "moment/moment";
 
@@ -205,9 +208,9 @@ export default {
     focus: '',
     type: 'month',
     typeToLabel: {
-      month: 'Mes',
-      week: 'Semana',
-      day: 'Dia',
+      month: 'Month',
+      week: 'Week',
+      day: 'Day',
 
     },
     personal: {},
@@ -265,13 +268,13 @@ export default {
     "id_user_assigned": "v2345678-90bc-1def-g234-567890bcdefg",
     "fk_project": "2f863b3c-4e6f-5g33-9504-3g7fcedeed0b*/
     convertToTasks(json) {
-      return json.map(evento => ({
-        name: evento.name,
-        start: new Date(evento.date_time_start),
-        end: new Date(evento.date_time_end),
-        color: 'blue',
+      return json.map(task => ({
+        name: task.name,
+        start: new Date(task.date_time_start),
+        end: new Date(task.date_time_end),
+        color: task.finished ? 'green' : 'warning',
         timed: true,
-        details: evento,
+        details: task,
       }));
     },
     closeModal() {
@@ -279,10 +282,11 @@ export default {
     },
 
 
-    async setFinalizado(evento) {
+    async setFinalizado(task) {
       try {
 
-        await setFinalizarEvento(evento.idEvento)
+        task.finished = true
+        await TaskService.update(task)
         this.tasks = []
         await this.fetchTasks()
         this.closeModal()

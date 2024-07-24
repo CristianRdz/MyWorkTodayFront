@@ -33,6 +33,18 @@ const router = new VueRouter({
             path: "/home/inicio/",
             name: "inicio",
             component: () => import("../components/public/Landing-pages/LandingPage.vue"),
+            beforeEnter: (to, from, next) => {
+                const auth = useAuthStore();
+                if (auth.user) {
+                    if (auth.user.role === 'Users') {
+                        next({ name: 'personalScreen' });
+                    } else if (auth.user.role === 'Admins') {
+                        next({ name: 'tasks' });
+                    }
+                } else {
+                    next();
+                }
+            },
         }, {
 
             path: "/home/profile/",
@@ -47,7 +59,11 @@ const router = new VueRouter({
             beforeEnter: (to, from, next) => {
                 const auth = useAuthStore();
                 if (auth.user) {
-                    next({ name: 'profile' });
+                    if (auth.user.role === 'Users') {
+                        next({ name: 'personalScreen' });
+                    } else if (auth.user.role === 'Admins') {
+                        next({ name: 'admin' });
+                    }
                 } else {
                     next();
                 }

@@ -49,6 +49,11 @@
           <td class="text-start">{{ formatDate(item.date_time_end) }}</td>
           <td class="text-start">{{ findUser(item.id_user_assigned) }}</td>
           <td class="text-start">{{ findProject(item.fk_project) }}</td>
+          <td class="text-start">
+            <v-chip :color="item.finished ? 'green' : 'red'" outlined small>{{
+                item.finished ? "Finished" : "Unfinished"
+              }}
+            </v-chip>
 
 
           <td class="text-start">
@@ -129,7 +134,7 @@ export default {
           value: "date_time_end",
         },
         {
-          text : "User Assigned",
+          text: "User Assigned",
           align: "start",
           sortable: false,
           value: "id_user_assigned"
@@ -139,6 +144,12 @@ export default {
           align: "start",
           sortable: false,
           value: "fk_project",
+        },
+        {
+          text: "Finished",
+          align: "start",
+          sortable: false,
+          value: "finished",
         },
         {
           text: "Active",

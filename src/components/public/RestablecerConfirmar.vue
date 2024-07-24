@@ -66,7 +66,7 @@
 </template>
 
 <script>
-import {confirmarCambio} from "@/services/RecuperarContraService";
+import {confirmChange} from "@/services/RecuperarContraService";
 
 export default {
   data() {
@@ -94,7 +94,7 @@ export default {
           token: this.token,
           contrasenia: this.contrasenia,
         };
-        await confirmarCambio(restablecerDto);
+        await confirmChange(restablecerDto);
 
       }
     },

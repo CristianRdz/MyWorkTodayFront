@@ -59,9 +59,9 @@
         <v-form class="space-y-4" @submit.prevent="onSubmit" ref="form" v-model="valid">
           <v-text-field
               for="email"
-              id="correo"
-              name="correo"
-              v-model="correo"
+              id="username"
+              name="username"
+              v-model="username"
               :rules="emailRules"
               label="email"
               required
@@ -86,7 +86,7 @@
 </template>
 
 <script>
-import {recuperarContra} from "@/services/RecuperarContraService";
+import {forgotPassword} from "@/services/RecuperarContraService";
 
 export default {
 
@@ -96,7 +96,7 @@ export default {
 
   data() {
     return {
-      correo: "",
+      username: "",
       loading: false,
       valid: true,
       rules: {
@@ -112,10 +112,10 @@ export default {
       if (this.$refs.form.validate()) {
         this.loading = true;
         let recuperarDto = {
-          correo: this.correo,
+          username: this.username,
         };
 
-        await recuperarContra(recuperarDto);
+        await forgotPassword(recuperarDto);
         this.loading = false;
       }
     },
@@ -125,8 +125,8 @@ export default {
   },
 
   watch: {
-    correo: function (val) {
-      this.correo = val.toLowerCase();
+    username: function (val) {
+      this.username = val.toLowerCase();
     },
   },
 };

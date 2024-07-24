@@ -1,25 +1,21 @@
 import {axiosClient} from "@/utils/axios-client";
 import {showNotification} from "@/utils/notification";
 
-const baseUrl = '/auth';
+const baseUrl = 'https://uwicx4uhsa.execute-api.us-east-1.amazonaws.com/Prod';
 
 
-export const recuperarContra = async (cambioRequestDto) => {
+export const forgotPassword = async (cambioRequestDto) => {
     try {
-        const response = await axiosClient.post(`${baseUrl}/restablecer`, cambioRequestDto)
-        response.data ? showNotification("success", "Correo enviado") : showNotification("error", "Error al enviar correo");
-        return response.data;
+        await axiosClient.post(`${baseUrl}/forgot_password`, cambioRequestDto);
     } catch (error) {
         console.log(error);
         showNotification("error", "Error al recuperar contraseña");
     }
 }
 
-export const confirmarCambio = async (restablecerContraDto) => {
+export const confirmChange = async (restablecerContraDto) => {
     try {
-        const response = await axiosClient.post(`${baseUrl}/confirmar`, restablecerContraDto)
-        response.data ? showNotification("success", "Contraseña cambiada") : showNotification("error", "Error al cambiar contraseña");
-        return response.data;
+        await axiosClient.post(`${baseUrl}/confirm_password`, restablecerContraDto);
     } catch (error) {
         console.log(error);
         showNotification("error", "Error al confirmar el cambio de contraseña");

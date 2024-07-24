@@ -75,6 +75,14 @@
                 ></v-select>
               </v-col>
 
+              <v-col cols="12" sm="6" :v-if="taskNew.id_task !== null">
+                <v-checkbox
+                    v-model="taskNew.finished"
+                    label="Finished"
+                    name="finished"
+                ></v-checkbox>
+              </v-col>
+
 
 
             </v-row>
