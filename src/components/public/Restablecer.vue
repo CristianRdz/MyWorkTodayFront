@@ -90,10 +90,6 @@ import {forgotPassword} from "@/services/RecuperarContraService";
 
 export default {
 
-  components: {
-    Captcha: () => import("@/components/public/Captcha.vue"),
-  },
-
   data() {
     return {
       username: "",
@@ -114,20 +110,11 @@ export default {
         let recuperarDto = {
           username: this.username,
         };
-
         await forgotPassword(recuperarDto);
         this.loading = false;
       }
     },
 
-  },
-  mounted() {
-  },
-
-  watch: {
-    username: function (val) {
-      this.username = val.toLowerCase();
-    },
   },
 };
 </script>
