@@ -1,6 +1,7 @@
 import axios from 'axios';
 import { useAuthStore } from '@/stores/auth.store';
 import {showNotification} from "@/utils/notification";
+import router from "@/router";
 
 export const axiosClient = {
     get: request('get'),
@@ -24,10 +25,11 @@ function request(method) {
             });
             return handleResponse(response);
         } catch (error) {
-            if (error.response) {
-                return handleResponse(error.response);
-            }
-            throw error;
+
+            localStorage.removeItem('user');
+            await router.push('/home/inicio');
+            showNotification('error', 'Server Error');
+
         }
     }
 }
@@ -46,16 +48,23 @@ function authHeader(url) {
 }
 
 function handleResponse(response) {
-    const data = response.data;
-    if (response.status > 400) {
-        const { user } = useAuthStore();
-        if ([401].includes(response.status) && user) {
-            showNotification("error", "Session expired");
-            this.useAuthStore().logout();
+    try {
+        const data = response.data;
+        if (response.status > 400) {
+            const { user } = useAuthStore();
+            if ([401].includes(response.status) && user) {
+                showNotification("error", "Session expired");
+                this.useAuthStore().logout();
+            }
+            const error = data?.message || response.statusText;
+            return Promise.reject(error);
         }
-        const error = data?.message || response.statusText;
-        return Promise.reject(error);
+        data.message ? showNotification(response.status === 200 ? "success" : "error", data.message) : null;
+        return data;
+    } catch (error) {
+
+        localStorage.removeItem('user');
+        router.push('/home/inicio');
+        showNotification('error', 'Server Error');
     }
-    data.message ? showNotification(response.status === 200 ? "success" : "error", data.message) : null;
-    return data;
 }

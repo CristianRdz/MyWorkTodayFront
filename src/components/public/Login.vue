@@ -49,7 +49,16 @@
             <div class="mt-4 text-sm text-gray-600 text-center">
               <p>
                 Forgot your password?
-                <a href="/restablecer/correo/" class="text-black hover:underline">Click here</a>
+                <a href="/recover/email/" class="text-black hover:underline">Click here</a>
+              </p>
+              <p>
+                You have a code to recover your password?
+                <a href="/recover/" class="text-black hover:underline">Click here</a>
+              </p>
+
+              <p>
+                You are new here? Confirm your account
+                <a href="/setPassword/" class="text-black hover:underline">Click here</a>
               </p>
             </div>
             <v-btn

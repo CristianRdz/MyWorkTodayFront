@@ -30,25 +30,25 @@
           MyWorkToday
         </h1>
         <h2 class="text-3xl font-semibold mb-6 text-black text-center sm:text-2xl lg:text-3xl">
-          Recover password
+          Confirm account
         </h2>
         <h1 class="text-sm font-semibold mb-6 text-gray-500 text-center">
-          Enter your email to recover your password
+          Enter your email to confirm your account
         </h1>
         <v-form ref="form" v-model="valid" class="space-y-4" @submit.prevent="onSubmit">
           <div>
             <v-text-field v-model="username" :rules="usernameRules" counter
-                          hint="Email is required" label="Email" name="input-10-1"></v-text-field>
+                          hint="Username is required" label="Username" name="input-10-1"></v-text-field>
 
             <div>
-              <v-text-field v-model="verification_code" :rules="codeRules" counter
-                            hint="Code is required" label="Recovery Code"
-                            name="input-10-1"></v-text-field>
+              <v-text-field v-model="temporary_password" :rules="passwordRules" counter
+                            hint="Temporary password is required" label="Temporary Password"
+                            name="input-10-2"></v-text-field>
             </div>
             <div>
               <v-text-field v-model="new_password" :append-icon="show1 ? 'mdi-eye' : 'mdi-eye-off'"
                             :rules="passwordRules" :type="show1 ? 'text' : 'password'" counter
-                            hint="Password required" label="password" name="input-10-1"
+                            hint="New password is required" label="New Password" name="input-10-3"
                             @click:append="show1 = !show1"></v-text-field>
             </div>
             <div>
@@ -75,7 +75,7 @@
 </template>
 
 <script>
-import {confirmChange} from "@/services/RecuperarContraService";
+import { setPassword} from "@/services/RecuperarContraService";
 import router from "@/router";
 
 export default {
@@ -85,6 +85,7 @@ export default {
       loading: false,
       verification_code: '',
       username: '',
+      temporary_password: '',
       new_password: '',
       passwordRules: [
         v => !!v || 'Password is required',
@@ -110,10 +111,10 @@ export default {
         this.loading = true;
         let changeDto = {
           username: this.username,
-          verification_code: this.verification_code,
+          temporary_password: this.temporary_password,
           new_password: this.new_password,
         };
-        const emailsent = await confirmChange(changeDto);
+        const emailsent = await setPassword(changeDto);
         this.loading = false;
         if (emailsent) {
           await router.push("/home/login/");

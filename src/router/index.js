@@ -9,21 +9,35 @@ const router = new VueRouter({
     }, {
         path: "/admin",
         meta: {role: 'Admins'},
-        name: "admin",
         component: () => import("../components/admin/components/SidebarNavbar.vue"),
         children: [{
-            path: "/", name: "dashboard", component: () => import("../components/admin/Dashboard.vue"),
+            path: "/",
+            meta: {role: 'Admins'},
+            name: "dashboard",
+            component: () => import("../components/admin/Dashboard.vue"),
         }, {
-            path: "/admin/users", name: "users", component: () => import("../components/admin/users/TableUsers.vue"),
+            path: "/admin/users",
+            meta: {role: 'Admins'},
+            name: "users",
+            component: () => import("../components/admin/users/TableUsers.vue"),
         }, {
-            path: "/admin/profile", name: "profileAdmin", component: () => import("../components/public/Profile.vue"),
-        },{
-            path: "/admin/projects", name: "projects", component: () => import("../components/admin/projects/TableProject.vue"),
-        },{
-            path: "/admin/tasks", name: "tasks", component: () => import("../components/admin/tasks/TableTask.vue"),
+            path: "/admin/profile",
+            meta: {role: 'Admins'},
+            name: "profileAdmin",
+            component: () => import("../components/public/Profile.vue"),
+        }, {
+            path: "/admin/projects",
+            meta: {role: 'Admins'},
+            name: "projects",
+            component: () => import("../components/admin/projects/TableProject.vue"),
+        }, {
+            path: "/admin/tasks",
+            meta: {role: 'Admins'},
+            name: "tasks",
+            component: () => import("../components/admin/tasks/TableTask.vue"),
         }
-    
-    ],
+
+        ],
     }, {
         path: "/home",
         name: "home",
@@ -37,9 +51,9 @@ const router = new VueRouter({
                 const auth = useAuthStore();
                 if (auth.user) {
                     if (auth.user.role === 'Users') {
-                        next({ name: 'personalScreen' });
+                        next({name: 'personalScreen'});
                     } else if (auth.user.role === 'Admins') {
-                        next({ name: 'tasks' });
+                        next({name: 'tasks'});
                     }
                 } else {
                     next();
@@ -55,45 +69,62 @@ const router = new VueRouter({
 
         }, {
             meta: {auth: false},
-            path: "/home/login/", name: "login", component: () => import("../components/public/Login.vue"),
+            path: "/home/login/",
+            name: "login",
+            component: () => import("../components/public/Login.vue"),
             beforeEnter: (to, from, next) => {
                 const auth = useAuthStore();
                 if (auth.user) {
                     if (auth.user.role === 'Users') {
-                        next({ name: 'personalScreen' });
+                        next({name: 'eventos'});
                     } else if (auth.user.role === 'Admins') {
-                        next({ name: 'admin' });
+                        next({name: 'admin'});
                     }
                 } else {
                     next();
                 }
             },
-        },{
+        }, {
 
-            path: "/restablecer/correo/",
+            path: "/recover/email/",
             meta: {auth: false},
-            name: "restablecerCorreo",
+            name: "recoverCorreo",
             component: () => import("../components/public/Restablecer.vue"),
             beforeEnter: (to, from, next) => {
                 const auth = useAuthStore();
                 if (auth.user) {
-                    next({ name: 'inicio' });
+                    next({name: 'inicio'});
                 } else {
                     next();
                 }
             },
         }, {
-            path: "/restablecer/",
+            path: "/recover/",
             meta: {auth: false},
-            name: "restablecerConfirmar",
+            name: "recoverConfirmar",
             component: () => import("../components/public/RestablecerConfirmar.vue"),
             beforeEnter: (to, from, next) => {
                 const auth = useAuthStore();
                 if (auth.user) {
-                    next({ name: 'inicio' });
+                    next({name: 'inicio'});
                 } else {
                     next();
                 }
+            },
+        }, {
+
+            path: "/setPassword/",
+            meta: {auth: false},
+            name: "setPassword",
+            component: () => import("../components/public/SetPassword.vue"),
+            beforeEnter: (to, from, next) => {
+                const auth = useAuthStore();
+                if (auth.user) {
+                    next({name: 'inicio'});
+                } else {
+                    next();
+                }
+
             },
         },
 
@@ -102,12 +133,16 @@ const router = new VueRouter({
     }, {
         path: "/personal",
         meta: {role: 'Users'},
-        name: "personalScreen",
         component: () => import("../components/personal/components/SidebarNavbar.vue"),
         children: [{
-            path: "/", name: "eventos", component: () => import("../components/personal/components/Eventos.vue"),
+
+            path: "/",
+            meta: {role: 'Users'},
+            name: "eventos",
+            component: () => import("../components/personal/components/Eventos.vue"),
         }, {
             path: "/personal/profile",
+            meta: {role: 'Users'},
             name: "profilePersonal",
             component: () => import("../components/public/Profile.vue"),
         }],
@@ -121,14 +156,16 @@ const router = new VueRouter({
 router.beforeEach(async (to, from, next) => {
     const auth = useAuthStore();
 
+
     if (to.matched.some((record) => record.meta?.auth)) {
         if (!auth.user) {
             auth.returnUrl = to.fullPath;
             return next({name: "inicio"});
         }
     }
-    if (to.meta.role !== auth.user?.role
-        && to.meta.role !== undefined) {
+
+    if (auth.user && to.meta.role !== auth.user.role && to.meta.role !== undefined) {
+        console.log(auth.user.role);
         return next({name: "404"});
     }
     next();

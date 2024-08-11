@@ -9,7 +9,7 @@
       </v-row>
       <v-row>
         <v-col cols="12" md="6">
-          <v-img src="https://www.inabaweb.com/wp-content/uploads/2023/04/Google-tasks-1072x660.png" alt="TaskMaster" width="100%"></v-img>
+          <v-img src="https://myworktoday-images.s3.amazonaws.com/images/banner.webp" alt="TaskMaster" width="100%"></v-img>
         </v-col>
         <v-col cols="12" md="6">
           <h2 class="title">Manage your tasks efficiently</h2>

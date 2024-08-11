@@ -56,7 +56,7 @@
         <h1 class="text-sm font-semibold mb-6 text-gray-500 text-center">
           Enter your email to recover your password
         </h1>
-        <v-form class="space-y-4" @submit.prevent="onSubmit" ref="form" v-model="valid">
+        <v-form class="space-y-4" @submit.prevent="onSubmit" ref="form">
           <v-text-field
               for="email"
               id="username"
@@ -94,10 +94,6 @@ export default {
     return {
       username: "",
       loading: false,
-      valid: true,
-      rules: {
-        required: (value) => !!value || "The password is required",
-      },
       emailRules: [
         (v) => !!v || "The email is required",
         (v) => /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(v) || "The email has an incorrect format"],
@@ -112,6 +108,7 @@ export default {
         };
         await forgotPassword(recuperarDto);
         this.loading = false;
+        await this.$router.push("/recover/");
       }
     },
 
