@@ -4,34 +4,16 @@
         class="hidden lg:flex w-1/2 items-center justify-center bg-fdoscuro text-fdoscuro"
     >
       <div class="max-w-md text-center">
-        <img
-            class="fixed left-[7%] top-[15%] logo"
-            src="https://myworktoday-images.s3.amazonaws.com/images/icon.svg"
-            alt=""
-            srcset=""
-        />
+        <img class="fixed left-[7%] top-[15%] logo" src="https://myworktoday-images.s3.amazonaws.com/images/icon.svg" alt="logo">
         <section class="rotate left-[7%] top-[15%]">
           <svg viewBox="0 0 100 100" class="">
-            <path
-                id="circlePath"
-                fill="none"
-                stroke-width="5"
-                stroke="none"
-                d="
-            M 10, 50
-            a 40,40 0 1,1 80,0
-            a 40,40 0 1,1 -80,0
-          "
-            />
-            <text
-                stroke="black"
-                stroke-width="0.45"
-                id="text"
-                font-family="monospace"
-                font-size="12.7"
-                font-weight="bolder"
-                fill="#e2e2e2"
-            >
+            <path id="circlePath" fill="none" stroke-width="5" stroke="none" d="
+          M 10, 50
+          a 40,40 0 1,1 80,0
+          a 40,40 0 1,1 -80,0
+        "/>
+            <text stroke="black" stroke-width="0.45" id="text" font-family="monospace" font-size="12"
+                  font-weight="bolder" fill="#e2e2e2">
               <textPath id="textPath" href="#circlePath">
                 📝 MyWorkToday 📊 MyWorkToday 📅 MyWorkToday
               </textPath>
