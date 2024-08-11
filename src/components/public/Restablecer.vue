@@ -6,7 +6,7 @@
       <div class="max-w-md text-center">
         <img
             class="fixed left-[7%] top-[15%] logo"
-            src="../../assets/images/icon.svg"
+            src="https://myworktoday-images.s3.amazonaws.com/images/icon.svg"
             alt=""
             srcset=""
         />

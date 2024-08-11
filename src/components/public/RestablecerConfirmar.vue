@@ -3,7 +3,7 @@
     <div class="hidden lg:flex w-1/2 items-center justify-center bg-fdoscuro text-fdoscuro">
 
       <div class="max-w-md text-center">
-        <img class="fixed left-[7%] top-[15%] logo" src="../../assets/images/logorealista.png" alt="" srcset=""/>
+        <img class="fixed left-[7%] top-[15%] logo" src="https://myworktoday-images.s3.amazonaws.com/images/icon.svg" alt="" srcset=""/>
         <section class="rotate left-[7%] top-[15%]">
           <svg viewBox="0 0 100 100" class="">
             <path id="circlePath" fill="none" stroke-width="5" stroke="none" d="

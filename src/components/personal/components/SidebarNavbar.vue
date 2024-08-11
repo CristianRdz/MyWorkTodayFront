@@ -3,7 +3,7 @@
     <div class="hidden w-27 bg-gray-900 overflow-y-auto md:block">
       <div class="w-full py-6 flex flex-col items-center">
         <div class="flex-shrink-0 flex items-center">
-          <img class="h-12 w-auto" src="/src/assets/images/icon.svg" alt="Workflow" />
+          <img class="h-12 w-auto" src="https://myworktoday-images.s3.amazonaws.com/images/icon.svg" alt="Workflow" />
         </div>
         <div class="flex-1 mt-6 w-full px-2 space-y-1">
           <a href="/personal/" class="text-indigo-100 hover:bg-gray-800 hover:text-white group w-full p-3 rounded-md flex flex-col items-center text-xs font-medium">
@@ -27,7 +27,7 @@
           </div>
 
           <div class="flex-shrink-0 px-4 flex items-center">
-            <img class="h-12 w-auto" src="/src/assets/images/icon.svg" alt="Workflow" />
+            <img class="h-12 w-auto" src="https://myworktoday-images.s3.amazonaws.com/images/icon.svg" alt="Workflow" />
           </div>
           <div class="mt-2 flex-1 h-0 px-2 overflow-y-auto">
             <nav class="h-full flex flex-col">
