@@ -118,7 +118,7 @@ export default {
         if (emailsent) {
           await router.push("/home/login/");
         } else {
-          await router.push("/recover/");
+          await router.push("/setPassword/");
         }
       }
     },

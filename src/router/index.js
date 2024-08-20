@@ -51,7 +51,7 @@ const router = new VueRouter({
                 const auth = useAuthStore();
                 if (auth.user) {
                     if (auth.user.role === 'Users') {
-                        next({name: 'personalScreen'});
+                        next({name: 'eventos'});
                     } else if (auth.user.role === 'Admins') {
                         next({name: 'tasks'});
                     }
