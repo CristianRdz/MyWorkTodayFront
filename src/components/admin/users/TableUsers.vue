@@ -34,7 +34,7 @@
                     ></v-text-field>
                   </v-col>
                   <v-col cols="12" md="4" sm="6">
-                    <v-select v-model="nuevoUsuario.fk_rol" :items="roles"
+                    <v-select v-model="nuevoUsuario.fk_rol" :items="roles" disabled
                               :rules="[v => !!v || 'Seleccione un rol']" item-text="name"
                               item-value="id_rol" label="Rol">
                     </v-select>
@@ -130,9 +130,7 @@
 <script>
 import usersServices from '../../../services/UsersServices'
 import rolesService from '../../../services/RolesService'
-import moment from 'moment'
 import swalService from "@/services/SwalService";
-import ProjectsService from "@/services/ProjectsService";
 
 export default {
   data() {
@@ -156,7 +154,7 @@ export default {
         full_name: '',
         email: '',
         active: true,
-        fk_rol: "",
+        fk_rol: "b2345c67-d890-1e23-fg45-678901bc2de3",
       },
       usuarioEditado: {
         full_name: '',
